@@ -10,7 +10,7 @@ Xiangru Huang, Yue Wang, Vitor Guizilini, Rares Ambrus, Adrien Gaidon and Justin
 Conference on Robotic Learning (CoRL) 2022.
 ```
 
-The code is adapted from [OpenPCDet](https://github.com/open-mmlab/OpenPCDet). The code will be updated by September 5th to include full functionality. Currently, it can extract object cluster sequences from LiDAR point cloud sequences for Waymo Open Dataset.
+The code is adapted from [OpenPCDet](https://github.com/open-mmlab/OpenPCDet). The code will be updated by September 5th to include full functionality. Currently, it can extract object cluster sequences from LiDAR point cloud sequences for Waymo Open Dataset, which is the major algorithmic part in the paper.
 
 # System Requirements
 
