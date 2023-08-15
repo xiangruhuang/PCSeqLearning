@@ -22,3 +22,13 @@ torch==1.13.1+cu117
 
 Please check `Install.md` for instructions of setting up this repo. 
 
+# Data preparation
+Please follow the instructions [here](https://github.com/xiangruhuang/PCSeqLearning/blob/main/docs/GETTING_STARTED.md) for preparing Waymo Open Dataset.
+
+# Demo
+```
+pip install polyscope
+bash scripts/dist_train_multi.sh 0 cfgs/waymo_models/PCsequence/registration/cluster_tracking_TLS_multiradius_every8.yaml cfgs/dataset_configs/waymo/PCsequence/registration/all_sequence.yaml cfgs/optimizers/registration.yaml --vis_cfg_file cfgs/visualizers/waymo/PCsequence/registration/voxel_visualizer.yaml
+```
+
+The visualizer will show the extracted object clusters given an input Waymo point cloud sequence.
