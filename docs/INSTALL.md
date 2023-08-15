@@ -34,5 +34,6 @@ b. Install the dependent libraries as follows:
   
 c. Install this `pcdet` library and its dependent libraries by running the following command:
 ```shell
+cd pcdet/ops/pointops && python setup.py install
 python setup.py develop
 ```
