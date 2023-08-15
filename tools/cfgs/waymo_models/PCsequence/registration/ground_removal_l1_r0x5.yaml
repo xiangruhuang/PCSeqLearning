@@ -1,0 +1,16 @@
+CLASS_NAMES: ['Vehicle', 'Pedestrian', 'Cyclist']
+
+MODEL:
+    NAME: SimpleReg
+    SCALE: 1
+
+    PREPROCESSORS:
+    - NAME: GroundPlaneRemover
+      DIR: ../output/waymo_sequence_registration/ground_removal/l1_opt_r0x5/height/
+      LOG_DIR: ../output/waymo_sequence_registration/ground_removal/l1_opt_r0x5/log/
+      PILLAR_SIZE: [2, 2]
+      LR: 0.01
+      DECAY_STEPS: [1600]
+      RIGID_WEIGHT: 0.5
+      MAX_NUM_ITERS: 10000
+      TRUNCATE_HEIGHT: [0.5]

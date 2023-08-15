@@ -1,0 +1,76 @@
+DATASET: 'WaymoDataset'
+DATA_PATH: '../data/waymo'
+PROCESSED_DATA_TAG: 'waymo_processed_data_v0_5_0'
+
+BOX_CLASSES: ['Vehicle', 'Pedestrian', 'Cyclist']
+
+POINT_CLOUD_RANGE: [-75.2, -75.2, -2, 75.2, 75.2, 4]
+
+DATA_SPLIT: {
+    'train': train,
+    'test': val
+}
+
+NUM_SWEEPS: 210
+SWEEP_DIR: 1
+
+SAMPLED_INTERVAL: {
+    'train': 1,
+    'test': 1
+}
+
+SAMPLED_SEQUENCE_INTERVAL: {
+    'train': 8,
+    'test': 8
+}
+
+SAMPLED_SEQUENCE_OFFSET_TRAIN: 0
+SAMPLED_SEQUENCE_OFFSET_TEST: 0
+
+SAMPLE_IDX_RANGE: {
+    'train': [0, 1],
+    'test': [0, 1],
+}
+
+GT_VELOCITY: True
+SYNC_MOVING_POINTS: False # sync all moving points
+
+EVALUATION_LIST: ['seg']
+
+SEGMENTATION_CFG: {
+  NUM_SEG_CLASSES: 23,
+  USE_ONLY_SAMPLES_WITH_SEG_LABELS: False,
+  LOAD_SEG: True
+}
+
+FILTER_EMPTY_BOXES_FOR_TRAIN: True
+DISABLE_NLZ_FLAG_ON_POINTS: True
+
+USE_SHARED_MEMORY: False  # it will load the data to shared memory to speed up (DO NOT USE IT IF YOU DO NOT FULLY UNDERSTAND WHAT WILL HAPPEN)
+SHARED_MEMORY_FILE_LIMIT: 35000  # set it based on the size of your shared memory
+
+DATA_AUGMENTOR:
+    DISABLE_AUG_LIST: ['placeholder']
+    AUG_CONFIG_LIST: []
+
+DROP_POINTS_BY_LIDAR_INDEX: [1,2,3,4]
+
+POINT_FEATURE_ENCODING: {
+    encoding_type: absolute_coordinates_encoding,
+    used_feature_list: ['intensity', 'elongation', 'range'],
+    src_feature_list: ['intensity', 'elongation', 'range', 'rimage_w', 'rimage_h'],
+}
+
+MAX_NUM_POINTS: 40000000
+
+DATA_PROCESSOR:
+    - NAME: transform_points_to_voxels
+      VOXEL_SIZE: [0.1, 0.1, 0.15]
+      POINT_CLOUD_RANGE: [-75.2, -75.2, -2, 75.2, 75.2, 4]
+      MAX_POINTS_PER_VOXEL: 5
+      MAX_NUMBER_OF_VOXELS: {
+        'train': 150000,
+        'test': 150000
+      }
+      DRY: True
+

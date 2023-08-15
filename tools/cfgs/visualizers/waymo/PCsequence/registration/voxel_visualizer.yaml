@@ -1,0 +1,163 @@
+VISUALIZER:  
+    NAME: PolyScopeVisualizer
+    ENABLED: True
+    SHARED_COLOR:
+        box-semantic-color: [
+          [0, 0, 0],
+          [1, 0, 0],
+          [0, 1, 0],
+          [0, 0, 1],
+        ]
+        seg-class-color: [
+          [0.3, 0.3, 0.3], # 0
+          [1, 0, 0],
+          [1, 0, 0],
+          [1, 0, 0], # 3
+          [1, 0, 0],
+          [1, 0, 0], 
+          [1, 0 ,0], # 6
+          [1, 0, 0], # 7
+          [0, 0, 0],
+          [0, 0, 0],
+          [0, 0, 0],
+          [0, 0, 0],
+          [0, 0, 0],
+          [0, 0, 0], # 13
+          [0, 0, 0],
+          [0, 0, 0],
+          [0, 0, 0],
+          [0, 1, 0], # 17
+          [0, 1, 0], # 18
+          [0, 1, 0], # 19
+          [0, 1, 0], # 20
+          [0, 1, 0], # 21
+          [0, 1, 0], # 22
+        ]
+        error-color: [
+          [0,1,0],
+          [1,0,0],
+        ]
+        prob-class-color: [
+          [1.00, 1.00, 1.00], 
+          [1.00, 0.95, 0.20], 
+          [1.00, 0.90, 0.20], 
+          [1.00, 0.85, 0.20], 
+          [1.00, 0.80, 0.20], 
+          [1.00, 0.75, 0.20], 
+          [1.00, 0.70, 0.20], 
+          [1.00, 0.65, 0.20], 
+          [1.00, 0.60, 0.20], 
+          [1.00, 0.55, 0.20], 
+          [1.00, 0.50, 0.20], 
+          [1.00, 0.45, 0.20], 
+          [1.00, 0.40, 0.20], 
+          [1.00, 0.35, 0.20], 
+          [1.00, 0.30, 0.20], 
+          [1.00, 0.25, 0.20], 
+          [1.00, 0.20, 0.20], 
+          [1.00, 0.15, 0.20], 
+          [1.00, 0.10, 0.20], 
+          [1.00, 0.05, 0.20], 
+          [1.00, 0.00, 0.20], 
+        ]
+
+    PRIMITIVE:
+        planes:
+          enabled: True
+
+    POINT_CLOUD_SEQUENCE:
+        full_point_fxyz:
+            color: [0.1098, 0.3882, 0.8902]
+            radius: 0.06
+            scalars:
+                full_segmentation_label: {}
+                full_instance_label: {}
+                full_point_sweep: {}
+                full_point_height: {}
+                full_point_horizon: {}
+                ground_mask: {}
+            class_labels:
+                full_segmentation_label:
+                    values: seg-class-color
+                    enabled: True
+                full_instance_label: {}
+            enabled: False
+        point_fxyz:
+            color: [0.1098, 0.3882, 0.8902]
+            radius: 0.06
+            scalars:
+                segmentation_label: {}
+                instance_label: {}
+                point_component_rad0x25: {}
+                point_component_rad0x5: {}
+                point_component_rad1x0: {}
+                point_component_rad1x25: {}
+                point_component_rad1x5: {}
+                point_pred_trace_id: {}
+                point_gt_trace_id: {}
+                point_pred_box_id: {}
+                point_gt_box_id: {}
+                point_sweep: {}
+                point_height: {}
+                point_min_z: {}
+                point_horizon: {}
+                point_error: {}
+                ground_mask: {}
+            class_labels:
+                segmentation_label:
+                    values: seg-class-color
+                    enabled: True
+                instance_label: {}
+                point_component_rad0x25: {}
+                point_component_rad0x5: {}
+                point_component_rad1x0: {}
+                point_component_rad1x25: {}
+                point_component_rad1x5: {}
+                point_pred_trace_id: {}
+                point_gt_trace_id: {}
+                point_pred_box_id: {}
+                point_gt_box_id: {}
+            enabled: False
+        
+        point_bxyz_no_ground:
+            color: [0.1098, 0.3882, 0.8902]
+            radius: 0.03
+            scalars:
+                segmentation_label_no_ground: {}
+                point_sweep_no_ground: {}
+                point_height_no_ground: {}
+                instance_label_no_ground: {}
+                instance_coverage_no_ground: {}
+                point_component_no_ground: {}
+            class_labels:
+                segmentation_label_no_ground:
+                    values: seg-class-color
+                    enabled: True
+                point_component_no_ground: {}
+            enabled: False
+
+    BOX_SEQUENCE:
+      gt_boxes: 
+        enabled: False
+        class_labels:
+            gt_box_track_label: {}
+            gt_box_frame: {}
+        scalars:
+            gt_box_track_label: {}
+            gt_box_frame: {}
+            gt_box_best_iou: {}
+            gt_box_velo: {}
+            moving: {}
+    BOX_SEQUENCE_FROM_CORNERS:
+      gt_box_corners_3d: 
+        enabled: False
+        class_labels:
+            gt_box_track_label: {}
+            gt_box_frame: {}
+        scalars:
+            gt_box_track_label: {}
+            gt_box_frame: {}
+            gt_box_best_iou: {}
+
+
+    OUTPUT: screen

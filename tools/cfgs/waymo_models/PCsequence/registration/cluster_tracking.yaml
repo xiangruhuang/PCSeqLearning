@@ -1,0 +1,41 @@
+CLASS_NAMES: ['Vehicle', 'Pedestrian', 'Cyclist']
+
+MODEL:
+    NAME: SimpleReg
+    SCALE: 1
+
+    PREPROCESSORS:
+      - NAME: GroundPlaneRemover
+        DIR: ../output/waymo_sequence_registration/ground_removal/l1_opt_r05/height/
+        LOG_DIR: ../output/waymo_sequence_registration/ground_removal/l1_opt_r05/log/
+        PILLAR_SIZE: [1, 1]
+        LR: 0.01
+        DECAY_STEPS: [800]
+        RIGID_WEIGHT: 0.5
+        MAX_NUM_ITERS: 2000
+        TRUNCATE_HEIGHT: [0.5]
+
+      - NAME: ClusterProposal
+        GRAPH:
+          TYPE: RadiusGraph
+          RADIUS: 1.0
+          MAX_NUM_NEIGHBORS: 32
+          SORT_BY_DIST: True
+          RELATIVE_KEY: fxyz
+        DIR: ../output/waymo_sequence_registration/cluster_proposal/l1_opt_r05_h05/
+
+      - NAME: ClusterTracking
+        ANGLE_REGULARIZER: 10
+        GRAPH:
+          TYPE: RadiusGraph
+          RADIUS: 1.0
+          MAX_NUM_NEIGHBORS: 1
+          SORT_BY_DIST: True
+          RELATIVE_KEY: fxyz
+        NN_GRAPH:
+          TYPE: RadiusGraph
+          RADIUS: 0.5
+          MAX_NUM_NEIGHBORS: 1
+          SORT_BY_DIST: True
+          RELATIVE_KEY: fxyz
+        DIR: ../output/waymo_sequence_registration/cluster_tracking/l1_opt_r05_h05_nbr1x0_every10/

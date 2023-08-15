@@ -1,0 +1,54 @@
+CLASS_NAMES: ['Vehicle', 'Pedestrian', 'Cyclist']
+
+MODEL:
+    NAME: SimpleReg
+    SCALE: 1
+
+    PREPROCESSORS:
+      - NAME: GroundPlaneRemover
+        DIR: ../output/waymo_sequence_registration/ground_removal/l1_opt_r0x5_dynamic/height/
+        LOG_DIR: ../output/waymo_sequence_registration/ground_removal/l1_opt_r0x5_dynamic/log/
+        PILLAR_SIZE: [2, 2]
+        LR: 0.01
+        DECAY_STEPS: [1600]
+        RIGID_WEIGHT: 0.5
+        MAX_NUM_ITERS: 10000
+        TRUNCATE_HEIGHT: [0.5]
+      
+      - NAME: ClusterProposal
+        GRAPH:
+          TYPE: RadiusGraph
+          RADIUS: [0.25, 0.5, 1.25]
+          MAX_NUM_NEIGHBORS: 32
+          SORT_BY_DIST: True
+          RELATIVE_KEY: fxyz
+        COMPONENT_KEYS: [
+            'component_rad0x25',
+            'component_rad0x5',
+            'component_rad1x25',
+        ]
+        DIR: ../output/waymo_sequence_registration/cluster_proposal/l1_opt_r0x5_dynamic_h0x5/
+
+      - NAME: ClusterTracking
+        ANGLE_REGULARIZER: 10
+        COMPONENTS: ['component_rad0x5', 'component_rad1x25']
+        GRAPH:
+          TYPE: RadiusGraph
+          RADIUS: 2.5
+          MAX_NUM_NEIGHBORS: 1
+          SORT_BY_DIST: True
+          RELATIVE_KEY: fxyz
+        NN_GRAPH:
+          TYPE: RadiusGraph
+          RADIUS: 0.5
+          MAX_NUM_NEIGHBORS: 1
+          SORT_BY_DIST: True
+          RELATIVE_KEY: fxyz
+        DIR: ../output/waymo_sequence_registration/cluster_tracking/nbr2x5_dynamic_radius_every10/
+        # parameters
+        TRACKING_PARAMS: {
+          REGISTRATION_ERROR_COEFFICIENT: 0.13,
+          TRACK_INTERVAL: 10,
+          ANGLE_THRESHOLD: 45,
+          MIN_MOVE_FRAME: 6,
+        }

@@ -1,0 +1,22 @@
+CLASS_NAMES: ['Vehicle', 'Pedestrian', 'Cyclist']
+
+MODEL:
+    NAME: SimpleReg
+    SCALE: 1
+    SAVE_DIR: ../output/waymo_sequence_registration/cluster_tracking/TLS_K8_nbr2x5_multiradius_every8/
+
+    PREPROCESSORS:
+      - NAME: GroundPlaneRemover
+        DIR: ../output/waymo_sequence_registration/ground_removal/l1_opt_r0x5_TLS_k8/height/
+        LOG_DIR: ../output/waymo_sequence_registration/ground_removal/l1_opt_r0x5_TLS_k8/log/
+        PILLAR_SIZE: [2, 2]
+        LR: 0.01
+        DECAY_STEPS: [1600]
+        RIGID_WEIGHT: 0.5
+        MAX_NUM_ITERS: 10000
+        TRUNCATE_HEIGHT: [0.05, 0.1, 0.15, 0.2, 0.3, 0.4, 0.5]
+        RANSAC: True
+        VISUALIZE: True
+        SIGMA2: 0.0025
+        JointOpt: True
+        K: 8
